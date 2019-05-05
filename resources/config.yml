@@ -1,4 +1,4 @@
 ---
-#
+#Redirect all server console commands, except for "stop" to bash
 redirect-commands: false
 ...
