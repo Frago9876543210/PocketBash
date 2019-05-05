@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Frago9876543210\PocketBash;
 
-use pocketmine\{command\ConsoleCommandSender, event\Listener, event\server\CommandEvent, plugin\PluginBase,
+use pocketmine\{command\CommandSender, event\Listener, event\server\CommandEvent, plugin\PluginBase,
 	snooze\SleeperNotifier};
 
 class Main extends PluginBase implements Listener{
 	/** @var BashProcessThread */
 	private $thread;
-	/** @var ConsoleCommandSender */
+	/** @var CommandSender */
 	private $sender;
 
 	public function onEnable() : void{
@@ -25,13 +25,25 @@ class Main extends PluginBase implements Listener{
 
 		$this->thread = new BashProcessThread($notifier);
 
-		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+		if($this->getConfig()->get("redirect-commands")){
+			$this->getServer()->getPluginManager()->registerEvents($this, $this);
+		}
+
+		$this->getServer()->getCommandMap()->register($this->getName(), new BashCommand($this));
+	}
+
+	public function getThread() : BashProcessThread{
+		return $this->thread;
+	}
+
+	public function setSender(CommandSender $sender) : void{
+		$this->sender = $sender;
 	}
 
 	public function onServerCommand(CommandEvent $e) : void{
 		$sender = $e->getSender();
 		$command = $e->getCommand();
-		if($sender instanceof ConsoleCommandSender && $command !== "stop"){
+		if($command !== "stop"){
 			$this->sender = $sender;
 			$this->thread->write($command);
 			$e->setCancelled();
