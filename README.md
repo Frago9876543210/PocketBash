@@ -1,6 +1,4 @@
 # PocketBash
-[![](https://poggit.pmmp.io/shield.state/PocketBash)](https://poggit.pmmp.io/p/PocketBash)
-
 Allows you to execute any bash commands through a PocketMine-MP console.
 
 There are two modes:
