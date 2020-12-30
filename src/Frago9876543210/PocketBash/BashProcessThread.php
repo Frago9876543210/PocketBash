@@ -13,13 +13,10 @@ use function is_resource;
 use function proc_close;
 use function proc_open;
 use function stream_set_blocking;
-use const PTHREADS_INHERIT_NONE;
 
 class BashProcessThread extends Thread{
 	/** @var SleeperNotifier */
 	private $notifier;
-	/** @var resource */
-	private $process;
 	/** @var resource[] */
 	private $pipes;
 	/** @var bool */
@@ -34,7 +31,7 @@ class BashProcessThread extends Thread{
 		$this->notifier = $notifier;
 		$this->queue = new Threaded();
 
-		$this->start(PTHREADS_INHERIT_NONE);
+		$this->start();
 	}
 
 	public function onRun() : void{
@@ -43,8 +40,8 @@ class BashProcessThread extends Thread{
 			["pipe", "w"],
 			["pipe", "w"]
 		];
-		$this->process = proc_open("/bin/bash", $descriptor, $pipes);
-		if($this->process === false){
+		$process = proc_open("/bin/bash", $descriptor, $pipes);
+		if($process === false){
 			return;
 		}
 		$this->pipes = $pipes;
@@ -56,7 +53,7 @@ class BashProcessThread extends Thread{
 		while(!$this->shutdown){
 			$this->read();
 		}
-		proc_close($this->process);
+		proc_close($process);
 	}
 
 	public function getBuffer() : string{

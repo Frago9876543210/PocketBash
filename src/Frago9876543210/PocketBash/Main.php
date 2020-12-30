@@ -17,9 +17,10 @@ class Main extends PluginBase implements Listener{
 	/** @var CommandSender */
 	private $sender;
 
-	public function onEnable() : void{
+	protected function onEnable() : void{
 		$sleeper = $this->getServer()->getTickSleeper();
 		$notifier = new SleeperNotifier();
+
 		$sleeper->addNotifier($notifier, function() : void{
 			$this->sender->sendMessage($this->thread->getBuffer());
 			$this->thread->synchronized(function(BashProcessThread $thread){
@@ -44,17 +45,18 @@ class Main extends PluginBase implements Listener{
 		$this->sender = $sender;
 	}
 
-	public function onServerCommand(CommandEvent $e) : void{
-		$sender = $e->getSender();
-		$command = $e->getCommand();
+	public function onServerCommand(CommandEvent $event) : void{
+		$sender = $event->getSender();
+		$command = $event->getCommand();
+
 		if($sender instanceof ConsoleCommandSender && $command !== "stop"){
 			$this->sender = $sender;
 			$this->thread->write($command);
-			$e->setCancelled();
+			$event->cancel();
 		}
 	}
 
-	public function onDisable() : void{
+	protected function onDisable() : void{
 		$this->thread->shutdown();
 	}
 }
