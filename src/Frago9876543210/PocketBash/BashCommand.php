@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Frago9876543210\PocketBash;
 
-use pocketmine\{command\Command, command\CommandSender, command\utils\InvalidCommandSyntaxException};
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\command\utils\InvalidCommandSyntaxException;
 use function count;
 use function implode;
 

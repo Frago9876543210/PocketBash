@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Frago9876543210\PocketBash;
 
-use pocketmine\{snooze\SleeperNotifier, thread\Thread};
+use pocketmine\snooze\SleeperNotifier;
+use pocketmine\thread\Thread;
 use Threaded;
 use function fgets;
 use function fwrite;

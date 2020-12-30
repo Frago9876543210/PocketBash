@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Frago9876543210\PocketBash;
 
-use pocketmine\{plugin\PluginBase, snooze\SleeperNotifier};
-use pocketmine\command\{CommandSender, ConsoleCommandSender};
-use pocketmine\event\{Listener, server\CommandEvent};
+use pocketmine\plugin\PluginBase;
+use pocketmine\snooze\SleeperNotifier;
+use pocketmine\command\CommandSender;
+use pocketmine\command\ConsoleCommandSender;
+use pocketmine\event\Listener;
+use pocketmine\event\server\CommandEvent;
 
 class Main extends PluginBase implements Listener{
 	/** @var BashProcessThread */
