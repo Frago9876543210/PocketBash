@@ -1,7 +1,7 @@
 name: PocketBash
 main: Frago9876543210\PocketBash\Main
 version: 1.0.0
-api: 4.0.0
+api: 3.14.0
 author: Frago9876543210
 description: Executes server commands in bash
 

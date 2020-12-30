@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Frago9876543210\PocketBash;
 
 use pocketmine\snooze\SleeperNotifier;
-use pocketmine\thread\Thread;
+use pocketmine\Thread;
 use Threaded;
 use function fgets;
 use function fwrite;
@@ -34,7 +34,7 @@ class BashProcessThread extends Thread{
 		$this->start();
 	}
 
-	public function onRun() : void{
+	public function run() : void{
 		$descriptor = [
 			["pipe", "r"],
 			["pipe", "w"],

@@ -17,7 +17,7 @@ class Main extends PluginBase implements Listener{
 	/** @var CommandSender */
 	private $sender;
 
-	protected function onEnable() : void{
+	public function onEnable() : void{
 		$sleeper = $this->getServer()->getTickSleeper();
 		$notifier = new SleeperNotifier();
 
@@ -52,11 +52,11 @@ class Main extends PluginBase implements Listener{
 		if($sender instanceof ConsoleCommandSender && $command !== "stop"){
 			$this->sender = $sender;
 			$this->thread->write($command);
-			$event->cancel();
+			$event->setCancelled();
 		}
 	}
 
-	protected function onDisable() : void{
+	public function onDisable() : void{
 		$this->thread->shutdown();
 	}
 }
